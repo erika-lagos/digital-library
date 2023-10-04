@@ -1,0 +1,80 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20pt;
+    padding: 15px;
+}
+
+.header button {
+    margin-right: 24px;
+    border: none;
+    background-color: #156746;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 14pt;
+    border-radius: 10px;
+}
+
+.main {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, min-content));
+    grid-template-rows: 35vh;
+    gap: 20px;
+}
+
+.book-card {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.book-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
+    background-color: #f1f5f9;
+    border: 1px solid #64748b;
+    box-shadow: 5px 5px 3px #64748b;
+}
+
+.book-details .title {
+    font-weight: bold;
+}
+
+.pages {
+    color: gray;
+    align-self: start;
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.book-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.book-buttons button {
+    background: none;
+    border: none;
+}
+
+.book-cover {
+    height: 110px;
+}
+
+.icon {
+    width: 20px;
+}
