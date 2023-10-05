@@ -26,11 +26,11 @@ body {
     padding: 24px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, min-content));
-    grid-template-rows: 35vh;
     gap: 20px;
 }
 
 .book-card {
+    height: 30vh;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 5px 5px 5px;
+    text-align: center;
+    padding: 20px 20px 5px 20px;
     background-color: #f1f5f9;
     border: 1px solid #64748b;
     box-shadow: 5px 5px 3px #64748b;
@@ -52,6 +53,11 @@ body {
 .book-details .title {
     font-weight: bold;
 }
+
+.book-details .author {
+    font-size: 11pt;
+}
+
 
 .pages {
     color: gray;
