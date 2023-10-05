@@ -4,6 +4,8 @@ body {
     gap: 40px;
 }
 
+
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -83,4 +85,78 @@ body {
 
 .icon {
     width: 20px;
+}
+
+.new-book-modal {
+    width: 40vw;
+    height: 30vh;
+    border: 1px solid #156746;
+    border-radius: 15px;
+    padding: 30px 45px;
+} 
+
+.new-book-modal > div {
+    font-weight: bold;
+    margin-bottom: 45px;
+}
+
+form {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 45px;
+}
+
+form ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+form ul li {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    column-gap: 12px;
+    row-gap: 3px;
+    align-items: center;
+}
+
+li label {
+    justify-self: end;
+}
+
+.checkbox-label {
+    justify-self: start;
+}
+
+#new-read {
+    justify-self: end;
+}
+
+.modal-buttons {  
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.modal-buttons button {
+    border: none;
+    background-color: #156746;
+    padding: 10px 50px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;;
+}
+
+.error {
+    color: red;
+}
+
+.error::after {
+    content: 'Please enter a valid number of pages';
+    color: red;
+    font-size: 8pt;
+    font-style: italic;
+    grid-column: 2 / 3;
 }

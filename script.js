@@ -44,6 +44,15 @@ const myLibrary = [
 ];
 
 const mainContainer = document.querySelector('.main');
+const newBookButton = document.querySelector('.new');
+const newBookModal = document.querySelector('.new-book-modal');
+const confirmButton = document.querySelector('.confirm');
+const cancelButton = document.querySelector('.cancel');
+const newTitleInput = document.querySelector('#new-title');
+const newAuthorInput = document.querySelector('#new-author');
+const newPagesInput = document.querySelector('#new-pages');
+const newPagesContainer = document.querySelector('.new-pages');
+const newReadInput = document.querySelector('#new-read');
 
 function Book(title, author, numPages, isRead) {
     this.title = title;
@@ -58,10 +67,16 @@ function Book(title, author, numPages, isRead) {
 }
 
 function addBookToLibrary() {
-    //TODO
+    const newTitle = newTitleInput.value;
+    const newAuthor = newAuthorInput.value;
+    const newPages = +newPagesInput.value;
+    const newRead = newReadInput.value;
+    const newBook = new Book(newTitle, newAuthor, newPages, newRead);
+    myLibrary.push(newBook);
+    addBookCard(newBook);
 }
 
-myLibrary.forEach(book => {
+function addBookCard(book) {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
     
@@ -100,7 +115,6 @@ myLibrary.forEach(book => {
     label.textContent = 'Read';
     readContainer.appendChild(checkbox);
     readContainer.appendChild(label);
-
     const delButton = document.createElement('button');
     delButton.classList.add('delete');
     const delIcon = document.createElement('img');
@@ -115,5 +129,45 @@ myLibrary.forEach(book => {
     bookCard.appendChild(bookButtons);
 
     mainContainer.appendChild(bookCard);
+}
 
+function clearModal() {
+    newTitleInput.value = '';
+    newAuthorInput.value = '';
+    newPagesInput.value = '';
+    newReadInput.checked = false;
+    newBookModal.close();
+}
+
+function init() {
+    myLibrary.forEach(book => {
+        addBookCard(book);
+    });
+}
+
+newBookButton.addEventListener('click', e => {
+    newBookModal.showModal();
 });
+
+newPagesInput.addEventListener('input', e => {
+    if (Number.isInteger(+newPagesInput.value)) {
+        newPagesContainer.classList.remove('error');
+    } else {
+        newPagesContainer.classList.add('error');
+    }
+});
+
+confirmButton.addEventListener('click', e => {
+    e.preventDefault();
+    addBookToLibrary();
+    clearModal();
+});
+
+cancelButton.addEventListener('click', e => {
+    e.preventDefault();
+    clearModal();
+});
+
+init();
+
+

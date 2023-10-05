@@ -15,8 +15,31 @@
     <div class="main">
  
     </div>
-    <dialog class="add-book">
-        Here we add books
+    <dialog class="new-book-modal">
+        <div>Please enter the details of the book:</div>
+        <form method="dialog">   
+            <ul>
+                <li>
+                    <label for="new-title">Title: </label>
+                    <input type="text" id="new-title" name="new-title">
+                </li>
+                <li>
+                    <label for="new-author">Author: </label>
+                    <input type="text" id="new-author" name="new-author">
+                </li>
+                <li class="new-pages">
+                    <label for="new-pages">Pages: </label>
+                    <input type="tel" id="new-pages" name="new-pages">
+                </li>
+                <li>
+                    <input type="checkbox" id="new-read" name="new-read">
+                    <label for="new-read" class="checkbox-label">I have read this book</label>
+                </li>
+            </ul>
+            <div class="modal-buttons">
+                <button class="confirm">Confirm</button><button class="cancel">Cancel</button>
+            </div>
+        </form>
     </dialog>
 </body>
 </html>
