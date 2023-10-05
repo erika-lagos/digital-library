@@ -4,44 +4,53 @@ const myLibrary = [
         author: 'Herman Hesse',
         numPages: 224,
         isRead: true,
+        bookId: 0,
     },
     {
         title: 'The Baron in the Trees',
         author: 'Italo Calvino',
         numPages: 319,
         isRead: true,
+        bookId: 1,
     },
     {
         title: "If on a Winter's Night a Traveler",
         author: 'Italo Calvino',
         numPages: 275,
         isRead: true,
+        bookId: 2,
     },
     {
         title: 'The Restaurant at the End of the World',
         author: 'Douglas Adams',
         numPages: 255,
         isRead: true,
+        bookId: 3,
     },
     {
         title: 'Life, the Universe and Everything',
         author: 'Douglas Adams',
         numPages: 242,
         isRead: true,
+        bookId: 4,
     },
     {
         title: "Ender's Game",
         author: 'Orson Scott Card',
         numPages: 374,
         isRead: true,
+        bookId: 5,
     },
     {
         title: "Life is Elsewhere",
         author: 'Milan Kundera',
         numPages: 429,
         isRead: true,
+        bookId: 6,
     },
 ];
+
+const lastBookId = myLibrary.length + 1;
 
 const mainContainer = document.querySelector('.main');
 const newBookButton = document.querySelector('.new');
@@ -79,6 +88,7 @@ function addBookToLibrary() {
 function addBookCard(book) {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
+    bookCard.dataset.bookId = book.bookId;
     
     const bookDetails = document.createElement('div');
     bookDetails.classList.add('book-details');  
@@ -90,9 +100,7 @@ function addBookCard(book) {
     author.textContent = book.author;
     const cover = document.createElement('img');
     cover.classList.add('book-cover');
-    const dashedTitle = 
-        `images/${book.title.toLowerCase().replaceAll(' ','-')}`;
-    cover.setAttribute('src', dashedTitle);
+    cover.setAttribute('src', `images/cover-${book.bookId}.jpg`);
     const pages = document.createElement('div');
     pages.classList.add('pages');
     pages.textContent = `${book.numPages} Pages`;
@@ -108,15 +116,17 @@ function addBookCard(book) {
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('name', 'read');
-    checkbox.setAttribute('id', dashedTitle);
+    checkbox.setAttribute('id', `read-${book.bookId}`);
     checkbox.checked = book.isRead;
     const label = document.createElement('label');
-    label.setAttribute('for', dashedTitle);
+    label.setAttribute('for', `read-${book.bookId}`);
     label.textContent = 'Read';
     readContainer.appendChild(checkbox);
     readContainer.appendChild(label);
     const delButton = document.createElement('button');
     delButton.classList.add('delete');
+    delButton.dataset.bookId = book.bookId;
+    delButton.addEventListener('click', deleteBook);
     const delIcon = document.createElement('img');
     delIcon.classList.add('icon');
     delIcon.setAttribute('src', 'images/delete.svg');
@@ -131,6 +141,14 @@ function addBookCard(book) {
     mainContainer.appendChild(bookCard);
 }
 
+function deleteBook(evt) {
+    const bookCard = evt.target.closest('.book-card');
+    const bookId = bookCard.dataset.bookId;
+    const bookIndex = myLibrary.findIndex(book => book.bookId === bookId);
+    myLibrary.splice(bookIndex,1);
+    mainContainer.removeChild(bookCard);
+}
+
 function clearModal() {
     newTitleInput.value = '';
     newAuthorInput.value = '';
@@ -140,8 +158,8 @@ function clearModal() {
 }
 
 function init() {
-    myLibrary.forEach(book => {
-        addBookCard(book);
+    myLibrary.forEach((book, i) => {
+        addBookCard(book, i);
     });
 }
 
