@@ -1,11 +1,13 @@
 class Book {
 
-    constructor(title, author, numPages, isRead, bookId) {
+    static lastBookId = 0;
+
+    constructor(title, author, numPages, isRead) {
         this.title = title;
         this.author = author;
         this.numPages = numPages;
         this.isRead = isRead;
-        this.bookId = bookId;
+        this.bookId = Book.lastBookId++;
     }
 
     info() {
@@ -15,16 +17,14 @@ class Book {
 }
 
 const myLibrary = [
-    new Book('The Steppenwolf', 'Herman Hesse', 224, true, 0),
-    new Book('The Baron in the Trees', 'Italo Calvino', 319, true, 1),
-    new Book("If on a Winter's Night a Traveler", 'Italo Calvino', 275, true, 2),
-    new Book('The Restaurant at the End of the World', 'Douglas Adams', 255, true, 3),
-    new Book('Life, the Universe and Everything', 'Douglas Adams', 242, true, 4),
-    new Book("Ender's Game", 'Orson Scott Card', 374, true, 5),
-    new Book("Life is Elsewhere", 'Milan Kundera', 429, true, 6)
+    new Book('The Steppenwolf', 'Herman Hesse', 224, true),
+    new Book('The Baron in the Trees', 'Italo Calvino', 319, true),
+    new Book("If on a Winter's Night a Traveler", 'Italo Calvino', 275, true),
+    new Book('The Restaurant at the End of the World', 'Douglas Adams', 255, true),
+    new Book('Life, the Universe and Everything', 'Douglas Adams', 242, true),
+    new Book("Ender's Game", 'Orson Scott Card', 374, true),
+    new Book("Life is Elsewhere", 'Milan Kundera', 429, true)
 ];
-
-let lastBookId = myLibrary.length + 1;
 
 const mainContainer = document.querySelector('.main');
 const newBookButton = document.querySelector('.new');
@@ -38,22 +38,28 @@ const newPagesContainer = document.querySelector('.new-pages');
 const newReadInput = document.querySelector('#new-read');
 
 
-
 function addBookToLibrary() {
     const newTitle = newTitleInput.value;
     const newAuthor = newAuthorInput.value;
     const newPages = +newPagesInput.value;
     const newRead = newReadInput.value;
-    const newBook = new Book(newTitle, newAuthor, newPages, newRead, lastBookId++);
+    const newBook = new Book(newTitle, newAuthor, newPages, newRead);
     myLibrary.push(newBook);
-    addBookCard(newBook);
+    renderBook(newBook);
 }
 
-function addBookCard(book) {
+function renderBook(book) {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
     bookCard.dataset.bookId = book.bookId;
-    
+    const bookDetails = renderBookDetails(book);
+    bookCard.appendChild(bookDetails);
+    const bookButtons = renderBookButtons(book);
+    bookCard.appendChild(bookButtons);
+    mainContainer.appendChild(bookCard);
+}
+
+function renderBookDetails(book) {
     const bookDetails = document.createElement('div');
     bookDetails.classList.add('book-details');  
     const title = document.createElement('div');
@@ -72,7 +78,10 @@ function addBookCard(book) {
     bookDetails.appendChild(author);
     bookDetails.appendChild(cover);
     bookDetails.appendChild(pages);
+    return bookDetails;
+}
 
+function renderBookButtons(book) {
     const bookButtons = document.createElement('div');
     bookButtons.classList.add('book-buttons');
     
@@ -99,10 +108,7 @@ function addBookCard(book) {
     bookButtons.appendChild(readContainer);
     bookButtons.appendChild(delButton);
 
-    bookCard.appendChild(bookDetails);
-    bookCard.appendChild(bookButtons);
-
-    mainContainer.appendChild(bookCard);
+    return bookButtons;
 }
 
 function deleteBook(evt) {
@@ -123,7 +129,7 @@ function clearModal() {
 
 function init() {
     myLibrary.forEach((book, i) => {
-        addBookCard(book, i);
+        renderBook(book, i);
     });
 }
 
