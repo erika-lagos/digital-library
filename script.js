@@ -1,56 +1,30 @@
+class Book {
+
+    constructor(title, author, numPages, isRead, bookId) {
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.isRead = isRead;
+        this.bookId = bookId;
+    }
+
+    info() {
+        const message = `${this.title} by ${this.author}, ${numPages} pages, ${isRead ? 'read' : 'not read yet'}`;
+        return message;
+    }
+}
+
 const myLibrary = [
-    {
-        title: 'The Steppenwolf',
-        author: 'Herman Hesse',
-        numPages: 224,
-        isRead: true,
-        bookId: 0,
-    },
-    {
-        title: 'The Baron in the Trees',
-        author: 'Italo Calvino',
-        numPages: 319,
-        isRead: true,
-        bookId: 1,
-    },
-    {
-        title: "If on a Winter's Night a Traveler",
-        author: 'Italo Calvino',
-        numPages: 275,
-        isRead: true,
-        bookId: 2,
-    },
-    {
-        title: 'The Restaurant at the End of the World',
-        author: 'Douglas Adams',
-        numPages: 255,
-        isRead: true,
-        bookId: 3,
-    },
-    {
-        title: 'Life, the Universe and Everything',
-        author: 'Douglas Adams',
-        numPages: 242,
-        isRead: true,
-        bookId: 4,
-    },
-    {
-        title: "Ender's Game",
-        author: 'Orson Scott Card',
-        numPages: 374,
-        isRead: true,
-        bookId: 5,
-    },
-    {
-        title: "Life is Elsewhere",
-        author: 'Milan Kundera',
-        numPages: 429,
-        isRead: true,
-        bookId: 6,
-    },
+    new Book('The Steppenwolf', 'Herman Hesse', 224, true, 0),
+    new Book('The Baron in the Trees', 'Italo Calvino', 319, true, 1),
+    new Book("If on a Winter's Night a Traveler", 'Italo Calvino', 275, true, 2),
+    new Book('The Restaurant at the End of the World', 'Douglas Adams', 255, true, 3),
+    new Book('Life, the Universe and Everything', 'Douglas Adams', 242, true, 4),
+    new Book("Ender's Game", 'Orson Scott Card', 374, true, 5),
+    new Book("Life is Elsewhere", 'Milan Kundera', 429, true, 6)
 ];
 
-const lastBookId = myLibrary.length + 1;
+let lastBookId = myLibrary.length + 1;
 
 const mainContainer = document.querySelector('.main');
 const newBookButton = document.querySelector('.new');
@@ -63,24 +37,14 @@ const newPagesInput = document.querySelector('#new-pages');
 const newPagesContainer = document.querySelector('.new-pages');
 const newReadInput = document.querySelector('#new-read');
 
-function Book(title, author, numPages, isRead) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.isRead = isRead;
 
-    this.info = function() {
-        const message = `${this.title} by ${this.author}, ${numPages} pages, ${isRead ? 'read' : 'not read yet'}`;
-        return message;
-    }
-}
 
 function addBookToLibrary() {
     const newTitle = newTitleInput.value;
     const newAuthor = newAuthorInput.value;
     const newPages = +newPagesInput.value;
     const newRead = newReadInput.value;
-    const newBook = new Book(newTitle, newAuthor, newPages, newRead);
+    const newBook = new Book(newTitle, newAuthor, newPages, newRead, lastBookId++);
     myLibrary.push(newBook);
     addBookCard(newBook);
 }
